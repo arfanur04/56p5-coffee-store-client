@@ -27,7 +27,7 @@ const AddCoffee = () => {
 		console.log(newCoffee);
 
 		// send data to the server
-		fetch("http://192.168.0.109:5000/coffee", {
+		fetch("http://localhost:5000/coffee", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",

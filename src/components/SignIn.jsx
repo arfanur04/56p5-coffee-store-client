@@ -19,7 +19,7 @@ const SignIn = () => {
 					lastLoggedAt: result.user?.metadata?.lastSignInTime,
 				};
 				// update last logged at in the database
-				fetch(`http://192.168.0.109:5000/user`, {
+				fetch(`http://localhost:5000/user`, {
 					method: "PATCH",
 					headers: {
 						"content-type": "application/json",

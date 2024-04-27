@@ -32,7 +32,7 @@ const UpdateCoffee = () => {
 		console.log(updatedCoffee);
 
 		// send data to the server
-		fetch(`http://192.168.0.109:5000/coffee/${_id}`, {
+		fetch(`http://localhost:5000/coffee/${_id}`, {
 			method: "PUT",
 			headers: {
 				"content-type": "application/json",

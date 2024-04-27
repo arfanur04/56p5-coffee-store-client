@@ -7,7 +7,7 @@ const Users = () => {
 
 	const handleDelete = (id) => {
 		// make sure user is confirmed to delete
-		fetch(`http://192.168.0.109:5000/user/${id}`, {
+		fetch(`http://localhost:5000/user/${id}`, {
 			method: "DELETE",
 		})
 			.then((res) => res.json())
