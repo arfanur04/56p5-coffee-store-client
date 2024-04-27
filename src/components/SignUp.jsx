@@ -17,19 +17,19 @@ const SignUp = () => {
 				const createdAt = result.user?.metadata?.creationTime;
 				const user = { email, createdAt: createdAt };
 				console.log(`user:`, user);
-				//  fetch('https://coffee-store-server-74xiae2di-jhankarphero.vercel.app/user', {
-				//      method: 'POST',
-				//      headers: {
-				//          'content-type': 'application/json'
-				//      },
-				//      body: JSON.stringify(user)
-				//  })
-				//      .then(res => res.json())
-				//      .then(data => {
-				//          if(data.insertedId){
-				//              console.log('user added to the database')
-				//          }
-				//      })
+				fetch(`http://192.168.0.109:5000/user`, {
+					method: "POST",
+					headers: {
+						"content-type": "application/json",
+					},
+					body: JSON.stringify(user),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						if (data.insertedId) {
+							console.log("user added to the database");
+						}
+					});
 			})
 			.catch((error) => {
 				console.error(error);
