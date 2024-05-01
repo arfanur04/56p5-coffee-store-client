@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = () => {
 	const { signInUser } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const handleSignIn = (e) => {
 		e.preventDefault();
@@ -18,18 +21,28 @@ const SignIn = () => {
 					email,
 					lastLoggedAt: result.user?.metadata?.lastSignInTime,
 				};
-				// update last logged at in the database
-				fetch(`https://56p5-coffee-store-server.vercel.app/user`, {
-					method: "PATCH",
-					headers: {
-						"content-type": "application/json",
-					},
-					body: JSON.stringify(user),
-				})
-					.then((res) => res.json())
+
+				axios
+					.patch(`https://56p5-coffee-store-server.vercel.app/user`, user)
 					.then((data) => {
-						console.log(data);
+						if (data.data.matchedCount > 0) {
+							navigate("/");
+						}
 					});
+
+				// // update last logged at in the database
+				// fetch(`https://56p5-coffee-store-server.vercel.app/user`, {
+				// 	method: "PATCH",
+				// 	headers: {
+				// 		"content-type": "application/json",
+				// 	},
+				// 	body: JSON.stringify(user),
+				// })
+				// 	.then((res) => res.json())
+				// 	.then((data) => {
+				// 		console.log(data);
+				// 		navigate("/");
+				// 	});
 			})
 			.catch((error) => {
 				console.error(error);

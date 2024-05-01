@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
 	const { createUser } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const handleSignUp = (e) => {
 		e.preventDefault();
@@ -12,24 +15,37 @@ const SignUp = () => {
 		console.log(email, password);
 		createUser(email, password)
 			.then((result) => {
-				console.log(result.user);
+				// console.log(result.user);
 				// new user has been created
 				const createdAt = result.user?.metadata?.creationTime;
 				const user = { email, createdAt: createdAt };
 				console.log(`user:`, user);
-				fetch(`https://56p5-coffee-store-server.vercel.app/user`, {
-					method: "POST",
-					headers: {
-						"content-type": "application/json",
-					},
-					body: JSON.stringify(user),
-				})
-					.then((res) => res.json())
+
+				// using axios
+				axios
+					.post(`https://56p5-coffee-store-server.vercel.app/user`, user)
 					.then((data) => {
-						if (data.insertedId) {
-							console.log("user added to the database");
+						if (data.data.insertedId) {
+							console.log("data added to database");
+							navigate("/");
 						}
 					});
+
+				// // using fetch
+				// fetch(`https://56p5-coffee-store-server.vercel.app/user`, {
+				// 	method: "POST",
+				// 	headers: {
+				// 		"content-type": "application/json",
+				// 	},
+				// 	body: JSON.stringify(user),
+				// })
+				// 	.then((res) => res.json())
+				// 	.then((data) => {
+				// 		if (data.insertedId) {
+				// 			console.log("user added to the database");
+				// 			navigate("/");
+				// 		}
+				// 	});
 			})
 			.catch((error) => {
 				console.error(error);

@@ -5,6 +5,22 @@ const Users = () => {
 	const loadedUsers = useLoaderData();
 	const [users, setUsers] = useState(loadedUsers);
 
+	// useEffect(() => {
+	// 	fetch(`/`)
+	// 		.then((res) => res.json())
+	// 		.then((data) => setUser(data))
+	// 		.catch((err) => console.error('err', err));
+	// }, []);
+
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`/`)
+	// 		.then((data) => {
+	// 			console.log(data.data);
+	// 		})
+	// 		.catch((err) => console.error("err", err));
+	// }, []);
+
 	const handleDelete = (id) => {
 		// make sure user is confirmed to delete
 		fetch(`https://56p5-coffee-store-server.vercel.app/user/${id}`, {
