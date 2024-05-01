@@ -22,17 +22,15 @@ const SignUp = () => {
 				console.log(`user:`, user);
 
 				// using axios
-				axios
-					.post(`https://56p5-coffee-store-server.vercel.app/user`, user)
-					.then((data) => {
-						if (data.data.insertedId) {
-							console.log("data added to database");
-							navigate("/");
-						}
-					});
+				axios.post(`http://192.168.0.107:5000/user`, user).then((data) => {
+					if (data.data.insertedId) {
+						console.log("data added to database");
+						navigate("/");
+					}
+				});
 
 				// // using fetch
-				// fetch(`https://56p5-coffee-store-server.vercel.app/user`, {
+				// fetch(`http://192.168.0.107:5000/user`, {
 				// 	method: "POST",
 				// 	headers: {
 				// 		"content-type": "application/json",

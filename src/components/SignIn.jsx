@@ -22,17 +22,15 @@ const SignIn = () => {
 					lastLoggedAt: result.user?.metadata?.lastSignInTime,
 				};
 
-				axios
-					.patch(`https://56p5-coffee-store-server.vercel.app/user`, user)
-					.then((data) => {
-						if (data.data.matchedCount > 0) {
-							console.log(data.data);
-							navigate("/");
-						}
-					});
+				axios.patch(`http://192.168.0.107:5000/user`, user).then((data) => {
+					if (data.data.matchedCount > 0) {
+						console.log(data.data);
+						navigate("/");
+					}
+				});
 
 				// // update last logged at in the database
-				// fetch(`https://56p5-coffee-store-server.vercel.app/user`, {
+				// fetch(`http://192.168.0.107:5000/user`, {
 				// 	method: "PATCH",
 				// 	headers: {
 				// 		"content-type": "application/json",

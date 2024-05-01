@@ -16,7 +16,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`https://56p5-coffee-store-server.vercel.app/coffee/${_id}`, {
+				fetch(`http://192.168.0.107:5000/coffee/${_id}`, {
 					method: "DELETE",
 				})
 					.then((res) => res.json())

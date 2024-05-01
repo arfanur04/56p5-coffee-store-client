@@ -1,18 +1,31 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const Users2 = () => {
-	const [users, setUsers] = useState([]);
+	// const [users, setUsers] = useState([]);
 
-	useEffect(() => {
-		fetch(`https://56p5-coffee-store-server.vercel.app/user`)
-			.then((res) => res.json())
-			.then((data) => setUsers(data))
-			.catch((err) => console.error("err", err));
-	}, []);
+	// useEffect(() => {
+	// 	fetch(`http://192.168.0.107:5000/user`)
+	// 		.then((res) => res.json())
+	// 		.then((data) => setUsers(data))
+	// 		.catch((err) => console.error("err", err));
+	// }, []);
+
+	const {
+		data: users,
+		error,
+		isError,
+		isPending,
+	} = useQuery({
+		queryKey: ["users"],
+		queryFn: async () => {
+			const res = await fetch(`http://192.168.0.107:5000/user`);
+			return res.json();
+		},
+	});
 
 	const handleDelete = (id) => {
 		// make sure user is confirmed to delete
-		fetch(`https://56p5-coffee-store-server.vercel.app/user/${id}`, {
+		fetch(`http://192.168.0.107:5000/user/${id}`, {
 			method: "DELETE",
 		})
 			.then((res) => res.json())
@@ -25,6 +38,22 @@ const Users2 = () => {
 				}
 			});
 	};
+
+	if (isPending) {
+		return (
+			<div className="flex justify-center my-24">
+				<span className="loading loading-spinner loading-lg"></span>
+			</div>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className="flex justify-center my-24">
+				<p>{error.message}</p>
+			</div>
+		);
+	}
 
 	return (
 		<div>
