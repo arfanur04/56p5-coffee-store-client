@@ -16,7 +16,7 @@ const SignIn = () => {
 
 		signInUser(email, password)
 			.then((result) => {
-				console.log(result.user);
+				// console.log(result.user);
 				const user = {
 					email,
 					lastLoggedAt: result.user?.metadata?.lastSignInTime,
@@ -26,6 +26,7 @@ const SignIn = () => {
 					.patch(`https://56p5-coffee-store-server.vercel.app/user`, user)
 					.then((data) => {
 						if (data.data.matchedCount > 0) {
+							console.log(data.data);
 							navigate("/");
 						}
 					});

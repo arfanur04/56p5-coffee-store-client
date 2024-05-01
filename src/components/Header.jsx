@@ -13,6 +13,9 @@ const Header = () => {
 			<NavLink to={"/users"}>
 				<button className="btn btn-ghost">Users</button>
 			</NavLink>
+			<NavLink to={"/users2"}>
+				<button className="btn btn-ghost">Users2</button>
+			</NavLink>
 			{user?.uid ? (
 				<>
 					<Link to={"/"}>
